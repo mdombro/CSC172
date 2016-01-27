@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="493925a9-a335-4a13-9def-dbc1c68e8e37" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/Lab2.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lab2.java" afterPath="$PROJECT_DIR$/Lab2.java" />
     </list>
@@ -32,9 +28,11 @@
       <file leaf-file-name="Lab2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lab2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.559415">
-              <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
-              <folding />
+            <state vertical-scroll-proportion="1.7440585">
+              <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#1963#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,8 +55,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="284" />
-    <option name="y" value="24" />
+    <option name="x" value="183" />
+    <option name="y" value="42" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -401,10 +399,17 @@
       <option name="number" value="Default" />
       <updated>1453872594584</updated>
     </task>
+    <task id="LOCAL-00001" summary="Fixed factorial 0 case">
+      <created>1453873908732</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1453873908732</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="284" y="24" width="1400" height="1000" extended-state="0" />
+    <frame x="183" y="42" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -434,6 +439,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed factorial 0 case" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed factorial 0 case" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
@@ -447,9 +456,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Lab2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.559415">
-          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
-          <folding />
+        <state vertical-scroll-proportion="1.7440585">
+          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#1963#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

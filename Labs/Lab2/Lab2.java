@@ -1,4 +1,6 @@
-import java.math.*;
+// Matthew Dombroski
+// No partner for this lab
+// Lab 2 - Combinatorics
 
 public class Lab2 {
   public static void main(String[] args) {
@@ -12,8 +14,7 @@ public class Lab2 {
     System.out.printf("The Pres, VP, Secretary, and Treasurer can be selected in %s ways.\n", orderedSelections(4, 200));
     System.out.printf("A sequence of 3 letters can be selected %s ways, a sequence of 5 letters can be selected %s ways.\n", orderedSelections(3,26), orderedSelections(5,26));
     System.out.println("Part 4:");
-    //System.out.printf("Testing: %d\n",factorial(26L));
-    System.out.printf("5 cards from a 52 card deck can give %d hands\n", unorderedSelections(5,52));
+    System.out.printf("5 cards from a 52 card deck can give %d hands\n", unorderedSelections(52,5));
   }
 
   public static int combos(int objects, int options) {
@@ -32,15 +33,6 @@ public class Lab2 {
     }
   }
 
-  public static long factorial(long n) {
-    //System.out.println(n);
-    if (n == 0L) {
-      return 1;  // if this ever gets 0
-    } else {
-      return n == 1L ? 1L : n * factorial(n - 1L);
-    }
-  }
-
   public static int orderedSelections(int items, int objects) {
     int lowerBound = objects - items;
     int selections = 1;
@@ -50,14 +42,13 @@ public class Lab2 {
     return selections;
   }
 
-  public static long unorderedSelections(long items, long objects) {
-    //System.out.println(items + " " + objects);
-    if (items == objects || items == 1L){
-      System.out.println(items + " " + objects);
-      return factorial(objects)/(factorial(objects-items)*factorial(items));
+  public static long unorderedSelections(long objects, long items) {
+    if (items == objects || items == 0L){
+        return 1L;  // choosing m items from n==m objects has only 1 selection
+                    // choosing 0 items from n objects has only 1 selection
     }
     else {
-      return unorderedSelections(items, objects-1L)+unorderedSelections(items-1L, objects-1L);
+      return unorderedSelections(objects-1L,items)+unorderedSelections(objects-1L, items-1L);
     }
   }
 }
