@@ -1,0 +1,4 @@
+Matthew Dombroski
+email: mdombros@u.rochester.edu
+
+Lab 1 goes over the concept of generics and their ability to make blocks of code usable for a variety of differnet types - i.e. more general purpose code that is not speific to one particular case - while also maintaining type safety, where any mismatch in types are caught at compiler time rather than runtime. The code for this lab will work for several types of Java objects, including strings, characters, floats, and integers. In addition a textbook example is modified so that a findMax() funtion will find the chronologically largest string or letter in an input, using the concept of gtenerics.  

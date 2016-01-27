@@ -1,0 +1,89 @@
+Output for parts 1 to 5. Outputs are in same order as in the lab: array of objects method -> method overloading -> generic method -> Comparable sort -> generic sort method 
+
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Parts1to5.java
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Parts1to5
+1
+2
+3
+4
+5
+1.1
+2.2
+3.3
+4.4
+H
+E
+L
+L
+O
+once
+upon
+a
+time
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Parts1to5.java
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Parts1to5
+1
+2
+3
+4
+5
+1.1
+2.2
+3.3
+4.4
+H
+E
+L
+L
+O
+once
+upon
+a
+time
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Parts1to5.java
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Parts1to5
+1
+2
+3
+4
+5
+1.1
+2.2
+3.3
+4.4
+H
+E
+L
+L
+O
+once
+upon
+a
+time
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Parts1to5.java
+Note: Lab1Parts1to5.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Parts1to5
+max Integer is : 5
+max Double is : 4.4
+max Character is : O
+max String is : upon
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Parts1to5.java
+Note: Lab1Parts1to5.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Parts1to5
+max Integer is : 5
+max Double is : 4.4
+max Character is : O
+max String is : upon
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ 
+
+
+Part 6 output:
+
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ javac Lab1Part6.java
+matthew@matthew-N56DP:~/Desktop/CSC 172 Labs/Lab1$ java Lab1Part6
+ZEBRA
+z
+
+
