@@ -25,11 +25,20 @@ public class Lab2 {
   }
 
   public static int factorial(int n) {
-    return n == 1 ? 1 : n*factorial(n-1);
+    if (n == 0) {
+      return 1;
+    } else {
+      return n == 1 ? 1 : n * factorial(n - 1);
+    }
   }
 
   public static long factorial(long n) {
-    return n == 1 ? 1 : n*factorial(n-1);
+    //System.out.println(n);
+    if (n == 0L) {
+      return 1;  // if this ever gets 0
+    } else {
+      return n == 1L ? 1L : n * factorial(n - 1L);
+    }
   }
 
   public static int orderedSelections(int items, int objects) {
@@ -42,12 +51,13 @@ public class Lab2 {
   }
 
   public static long unorderedSelections(long items, long objects) {
-
-    if (items == objects || items == 1){
-      return factorial(objects/(factorial(objects-items)*factorial(items)));
+    //System.out.println(items + " " + objects);
+    if (items == objects || items == 1L){
+      System.out.println(items + " " + objects);
+      return factorial(objects)/(factorial(objects-items)*factorial(items));
     }
     else {
-      return unorderedSelections(items, objects-1)+unorderedSelections(items-1, objects-1);
+      return unorderedSelections(items, objects-1L)+unorderedSelections(items-1L, objects-1L);
     }
   }
 }
