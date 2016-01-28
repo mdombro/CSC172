@@ -17,7 +17,7 @@ public class Lab3 {
       }
     }
     int denom = 1;
-    
+
     System.out.println(n+bins.size()-1 + " " + Integer.toString(bins.size()-1));
     return unorderedSelections(n+bins.size()-1, bins.size()-1);
     //return 3;
