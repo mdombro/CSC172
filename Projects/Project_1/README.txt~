@@ -1,0 +1,10 @@
+Matthew Dombroski
+Project 1
+
+The core task of this project was to implement an algorithm which breaks the code which a human user has in mind. The algoithm used is very similar to the one described in class: 
+- A guess is chosen by the cimputer, in this case the guess is always the first element of the List that contains all remaining possible guesses.
+- The feedback from the user for that guess is then used to select the remaining set of guesses. This is done by taking the current guess and assuming it to be the 'answer'. Every remaining guess is compared to this 'answer', giving a feedback of black and white pegs. if this feedback between the 'answer' and the a possible gues does match the actual feedback given by the user for the 'answer', then that particular guess is not a possible answer and is removed from the list of possible guesses. 
+- These two steps are reapeted until an answer is found. The exceptions to answer being found are that a) the computer runs out of tries (given by the user), or b) the user supplies an incorrect feeback, eliminating all of the reaining elements because of an impossibility between the feedback and the remaining set. 
+
+The rest of the code is for supporting functions to operate the game - providing UI, tracking game state and win/lose condition, and managing replay or exiting of the game. 
+

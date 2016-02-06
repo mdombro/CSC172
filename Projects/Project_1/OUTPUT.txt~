@@ -1,0 +1,61 @@
+// Matthew Dombroski
+
+// ANSWER: blue, blue, green, yellow
+
+(precise)matthew@localhost:~/CSC172/Projects/Project_1$ javac Project_1.java
+(precise)matthew@localhost:~/CSC172/Projects/Project_1$ java Project_1
+Welcome to Mastermind!
+In this game you will give the computer a code to break and the computer will need to break it in a user specified amoutn of tries
+Input the colors of the pegs. Press <Enter> after each color. Type 'done' or 'Done to stop: 
+red
+blue
+yellow
+green
+done
+
+How many positions should there be: 
+4
+
+How many tries should there be? 
+8
+
+Current guess is red, red, blue, blue
+How many white pegs are there?
+2
+How many red pegs are there?
+0
+
+Colors guessed: 
+blue, blue, yellow, yellow
+
+How many white pegs are there?
+0
+How many red pegs are there?
+3
+
+Colors guessed: 
+blue, blue, yellow, green
+
+How many white pegs are there?
+2
+How many red pegs are there?
+2
+
+Colors guessed: 
+blue, blue, green, yellow
+
+How many white pegs are there?
+0
+How many red pegs are there?
+4
+
+The computer won!!
+Do you want to play another game?
+no
+
+Goodbye!
+(precise)matthew@localhost:~/CSC172/Projects/Project_1$ 
+
+
+// EXAMPLE when an incorrect input is supplied
+

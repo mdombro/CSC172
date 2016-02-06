@@ -1,0 +1,18 @@
+// Matthew Dombroski
+// Lab 3
+
+(precise)matthew@localhost:~/CSC172/Labs/Lab3$ javac Lab3.java
+(precise)matthew@localhost:~/CSC172/Labs/Lab3$ java Lab3
+Part 1:
+The letters of error can be arranged 20 ways
+The letters of street can be arranged 180 ways
+The letters of allele can be arranged 60 ways
+The letters of Mississippi can be arranged 34650 ways
+Part 2:
+Six apples to four children can be distributed 84 ways
+Six apples to four children can be distributed 126 ways
+Part 3:
+Six apples and three pairs to five children can be distributed 60060 ways
+Two apples, five pears, and six bananas to three children can be distributed 3783780 ways
+(precise)matthew@localhost:~/CSC172/Labs/Lab3$ 
+

@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package project_1;
+// Matthew Dombroski
+// MasterMind class - implements the required methods and other neccesary methods to operate the game core
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author matthew
- */
 public class masterMind {
     int numCases = 1;
     int positions;
@@ -18,7 +11,7 @@ public class masterMind {
     List<String> cases = new ArrayList<>();
     String guess;
     String[] colors;
-    
+
     public masterMind(String[] pegColors, int numPegs) {
         positions = numPegs;
         numColors = pegColors.length;
@@ -28,11 +21,11 @@ public class masterMind {
         for (int i = 0; i < numCases; i++) {
             cases.add((new String(new char[positions]).replace("\0", "0") + Integer.toString(i,pegColors.length)).substring(Integer.toString(i, pegColors.length).length()));
         }
-        
+
         guess = (new String(new char[positions]).replace("\0", "0") + Integer.toString(11)).substring(Integer.toString(11).length());
         colors = pegColors;
     }
-    
+
     public void response(int colorsRightPositionWrong, int positionsAndColorRight) {
         // we need to compare the list with the last guess
         int CRPW = 0;
@@ -59,8 +52,8 @@ public class masterMind {
                         }
                     }
                 }
-            }     
-            
+            }
+
             if (CRPW != colorsRightPositionWrong || PACR != positionsAndColorRight) {
                 toRemove.add(cases.get(i)); // elements to be rmoved
             }
@@ -73,16 +66,16 @@ public class masterMind {
             cases.remove(elem);  // physically remove elements
         }
     }
-    
-    
+
+
     public void newGame() {
         guess = (new String(new char[positions]).replace("\0", "0") + Integer.toString(11)).substring(Integer.toString(11).length());
         cases.clear();
         for (int i = 0; i < numCases; i++) {
             cases.add((new String(new char[positions]).replace("\0", "0") + Integer.toString(i,numColors)).substring(Integer.toString(i, numColors).length()));
         }
-    } // Reset the game 
-    
+    } // Reset the game
+
     public  String [] nextMove() {
         guess = cases.get(0);
         String[] guessString = new String[positions];
@@ -90,8 +83,8 @@ public class masterMind {
             guessString[p] = colors[Character.getNumericValue( guess.charAt(p))];
         }
         return guessString;
-    } 
-    
+    }
+
     public String guessToString() {
         String guessString = "";
         for (int p = 0; p < positions; p++) {
@@ -99,5 +92,5 @@ public class masterMind {
         }
         return guessString;
     }
-    
+
 }

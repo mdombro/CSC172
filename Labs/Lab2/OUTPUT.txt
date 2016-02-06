@@ -1,0 +1,17 @@
+// Matthew Dombroski
+// Lab 2
+
+(precise)matthew@localhost:~/CSC172/Labs/Lab2$ javac Lab2.java
+(precise)matthew@localhost:~/CSC172/Labs/Lab2$ java Lab2
+Part 1:
+We can paint 3 houses with 4 different colors 64 ways.
+An 8 to 10 letter/digit password has 1780237056 combinations.
+Part 2:
+There are 362880 orderings of 9 baseball players.
+Part 3:
+The Pres, VP, Secretary, and Treasurer can be selected in 1552438800 ways.
+A sequence of 3 letters can be selected 15600 ways, a sequence of 5 letters can be selected 7893600 ways.
+Part 4:
+5 cards from a 52 card deck can give 2598960 hands
+(precise)matthew@localhost:~/CSC172/Labs/Lab2$ 
+
