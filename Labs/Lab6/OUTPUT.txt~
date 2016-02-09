@@ -1,0 +1,15 @@
+Authors: Matthew Dombroski and Greg Hunkins
+
+Lab 6
+
+$ java Lab6
+Empty test 1: true
+Inserting String 'item1' into List
+Empty test 2: false
+Inserting Int '100' into List
+Peeking list: 100
+Popping off stack: 100
+Peeking list: item1
+Popping off stack: item1
+Peeking list: null
+
