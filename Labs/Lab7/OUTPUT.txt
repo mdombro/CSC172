@@ -1,0 +1,16 @@
+Authors: Matthew Dombroski and Greg Hunkins
+
+Lab 7 output
+
+run:
+Empty test 1: true
+Inserting String 'item1' into List
+Empty test 2: false
+Inserting Int '100' into List
+Peeking list: item1
+Dequeueing: item1
+Peeking list: 100
+Dequeueing: 100
+Peeking list: null
+BUILD SUCCESSFUL (total time: 0 seconds)
+
