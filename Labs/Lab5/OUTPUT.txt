@@ -1,0 +1,32 @@
+AUTHORS: Gregory Hunkins and Matthew Dombroski
+
+LAB5 OUTPUT
+
+$ java Lab5
+Empty test 1: true
+Inserting String 'item1' into List
+Empty test 2: false
+Inserting Int '100' into List
+Printing the list: 
+100
+item1
+Testing that 100 cannot be reinserted
+100
+item1
+Inserting More data
+1000
+Hello
+220
+100
+item1
+Looking up '100' results in: 100
+Looking up '101' results in: null
+Testing to see if contains 'Hello' is: true
+Deleting 'Hello' and retesting.
+Testing to see if contains 'Hello' is: false
+Printing list reversed
+item1
+100
+220
+1000
+
