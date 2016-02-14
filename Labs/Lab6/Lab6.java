@@ -85,7 +85,13 @@ public class Lab6 {
         //Searches linked list for data, returns data if found
         //else returns null
         public AnyType peek() {
-            return (AnyType)first.data;
+            if (isEmpty())
+            {
+              return null;
+            }
+            else {
+              return (AnyType)first.data;
+            }
         }
 
         //checks to see if the linked list is empty
