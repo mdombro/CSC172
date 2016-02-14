@@ -1,11 +1,8 @@
 /*
- * Programmers: Greg Hunkins and Matt Dombroski
+ * Programmers: Matt Dombroski and Greg Hunkins
  * Partner: Greg Hunkins
  */
 import java.util.*;
-/**
- * Lab 6 CS 172 University of Rochester
- */
 
 public class Lab6 {
 
@@ -28,22 +25,8 @@ public class Lab6 {
 
         System.out.println("Peeking list: " + myStack.peek());
         //myStack.printList();
-
-
-
-
-        // System.out.println("Testing that 100 cannot be reinserted");
-        // myStack.insert(100);
-        // myStack.printList();
-        // System.out.println("Looking up '100' results in: " + String.valueOf(myStack.lookup(100)));
-        // System.out.println("Looking up '101' results in: " + String.valueOf(myStack.lookup(101)));
-        // System.out.println("Testing to see if contains 'item1' is: " + String.valueOf(myStack.contains("item1")));
-        // System.out.println("Deleting 'item1' and retesting.");
-        // myStack.delete("item1");
-        // System.out.println("Testing to see if contains 'item1' is: " + String.valueOf(myStack.contains("item1")));/
     }
 
-    // PART 1: Build successful //
     public static class Node<AnyType> {
         public AnyType data;
         public Node<AnyType> next;
@@ -82,8 +65,6 @@ public class Lab6 {
           else return null;
         }
 
-        //Searches linked list for data, returns data if found
-        //else returns null
         public AnyType peek() {
             if (isEmpty())
             {
@@ -94,19 +75,9 @@ public class Lab6 {
             }
         }
 
-        //checks to see if the linked list is empty
-        //empty if the first is empty and doesn't link anywhere
         public boolean isEmpty() {
             if (first.next == null && first.data == null) return true;
             return false;
         }
-
-        // public void printList() {
-        //     Node current = first;
-        //     while (current.next != null) {
-        //         System.out.println(current.data);
-        //         current = current.next;
-        //     }
-        // }
     }
 }
