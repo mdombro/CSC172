@@ -1,0 +1,19 @@
+AUTHORS: Gregory Hunkins and Matthew Dombroski
+
+LAB4 OUTPUT:
+
+run:
+Empty test 1: true
+Inserting String 'item1' into List
+Empty test 2: false
+Inserting Int '100' into List
+Printing the list: 
+100
+item1
+Looking up '100' results in: 100
+Looking up '101' results in: null
+Testing to see if contains 'item1' is: true
+Deleting 'item1' and retesting.
+Testing to see if contains 'item1' is: false
+BUILD SUCCESSFUL (total time: 0 seconds)
+
