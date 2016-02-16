@@ -12,13 +12,13 @@ import java.util.zip.CheckedInputStream;
 
 public class Proj2 {
     public static void main(String [] args) {
-        String test = "5.2+1.0";
+        String test = "!(3=2)&(5>6)";
         Queue post = inFixToPostFix(test);
         //float eval = evalPostFix(post);
         Object[] p = post.toArray();
         System.out.println("Give it a ring boys");
         for (int i = 0; i < p.length; i++) {
-            System.out.println(p[i]);
+            System.out.print(p[i] +", ");
         }
         //System.out.println(post);
     }
@@ -47,7 +47,7 @@ public class Proj2 {
         ArrayList<Character> op = new ArrayList<>();
         int supress = 0;
         for (int i = 0; i < infix.length(); i++) {
-            if (operator(infix.charAt(i))) {
+            if (operator(infix.charAt(i)) || infix.charAt(i) == '(' || infix.charAt(i) == ')') {
                 op.add(infix.charAt(i));
                 System.out.println("Im adding an operator " + infix.charAt(i));
                 c.add(new ArrayList<>(op));
@@ -56,6 +56,25 @@ public class Proj2 {
                 supress = 0;
             }
             if (number(infix.charAt(i))) {
+                if (supress == 0) {  // in the case of the first digit
+                    od.add(infix.charAt(i));
+                    System.out.println("Im adding a digit " + infix.charAt(i));
+                    supress = 1;
+                    if (i == infix.length()-1) {   // in case we are on the last single digit number
+                        System.out.println("I've cleared a sub list");
+                        c.add(new ArrayList<>(od));
+                        od.clear();
+                        supress = 0;
+                        continue;
+                    }
+                    if (!number(infix.charAt(i+1))) { // in the case we have a one digit number
+                        System.out.println("I've cleared a sub list");
+                        c.add(new ArrayList<>(od));
+                        od.clear();
+                        supress = 0;
+                    }
+                    continue;
+                }
                 if (supress == 1 && i == infix.length() - 1) {  // in the case this is the last digit and last element of the string
                     System.out.println("Im adding a digit " + infix.charAt(i));
                     od.add(infix.charAt(i));
@@ -78,17 +97,6 @@ public class Proj2 {
                     System.out.println("Im adding a digit " + infix.charAt(i));
                     od.add(infix.charAt(i));
                     continue;
-                }
-                if (supress == 0) {  // in the case of the first digit
-                    od.add(infix.charAt(i));
-                    System.out.println("Im adding a digit " + infix.charAt(i));
-                    supress = 1;
-                    if (i == infix.length() - 1) { // in the case we have a one digit number
-                        System.out.println("I've cleared a sub list");
-                        c.add(new ArrayList<>(od));
-                        od.clear();
-                        supress = 0;
-                    }
                 }
             }
         }
@@ -114,7 +122,7 @@ public class Proj2 {
                     System.out.println(num);
                     floating = "";
                 }
-                if (operator(li.get(i))) {
+                if (operator(li.get(i)) || li.get(i) == '(' || li.get(i) == ')') {
                     inFix.add(li.get(i));
                     System.out.println(li.get(i));
                 }
@@ -132,16 +140,18 @@ public class Proj2 {
         String output = "";
         for (Object i : inFix) {
             System.out.println("What's in q: " + q.toString());
-            if (i.getClass() == Float.class) {
-                System.out.println("When is this true");
+            if (i.getClass() == Float.class || i.getClass() == Number.class) {
+                System.out.println("Queue has added: " + i);
                 q.add(i);
             }
             if (i.getClass() == Character.class) {
                 if ((char) i == '(') {
+                    System.out.println("Stack has added 1: " + i);
                     s.push((char) i);  // ( always pushed to stack
                 }
                 if ((char) i == ')') {
                     while (s.peek() != '(') {  // pop from stack to queue until ( found
+                        System.out.println("Queue has added 1: " + s.peek());
                         q.add(s.pop());
                     }
                     s.pop(); // pop the ( off into nothing
@@ -149,23 +159,27 @@ public class Proj2 {
                 if (operator((char) i)) {  // if input is an operator +, -, *, /, <, >, =, !, |, &
                     if (s.isEmpty()) {
                         s.push((char) i);
+                        System.out.println("Stack has added 2: " + i);
                     } else if (higherPrecedence((char) i, s.peek())) {
                         s.push((char) i); // if the input has a higher precedence than what is on top of the stack we just push to stack
+                        System.out.println("Stack has added 3: " + i);
                     } else {
+                        System.out.println("Queue has added 2: " + s.peek());
                         q.add(s.pop()); // otherwise pop off stack into queue
                         s.push((char) i);  // and then push read operator onto stack
                     }
                 }
             }
-            while (!s.isEmpty()) {
-                q.add(s.pop());  // empty any remaining operators onto the output queue
-            }
+
+        }
+        while (!s.isEmpty()) {
+            q.add(s.pop());  // empty any remaining operators onto the output queue
+        }
             //System.out.println(q.toString());
             //while (!q.isEmpty()) {
               //  output += Character.toString(q.remove());
             //}
 
-        }
         return q; //output;
     }
 
@@ -177,15 +191,6 @@ public class Proj2 {
             }
         }
         return false;
-//        if (i == '.') {
-//            return true;
-//        }
-//        if (Character.getNumericValue(i) == -1 ) {
-//            return false;
-//        }
-//        else {
-//            return true;
-//        }
     }
 
     public static boolean operator(char i) {
@@ -235,10 +240,10 @@ public class Proj2 {
         switch (i) {
             case '!':
                 return 1;
-            //case '(':
-            //    return 2;
-            //case ')':
-            //    return 2;
+            case '(':
+                return 2;
+            case ')':
+                return 2;
             case '*':
                 return 3;
             case '/':
