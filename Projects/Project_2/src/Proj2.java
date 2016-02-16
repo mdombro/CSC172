@@ -12,10 +12,41 @@ public class Proj2 {
     public static void main(String [] args) {
         String test = "!((3<5)=(7>4))";
         String post = inFixToPostFix(test);
+        float eval = evalPostFix(post);
         System.out.println(post);
     }
 
+    public evalPostFix(String post) {
+      // 1. Get the token at the front of the queue.
+      // 2. If the token is an operand, push it onto the stack.
+      // 3. If the token is an operator, pop the appropriate number of operands from the stack (e.g. 2
+         // operands for multiplication, 1 for logical NOT). Perform the operation on the popped
+         // operands, and push the resulting value onto the stack.
+         Queue q = new LinkedList();
+         myStack<Character> s = new myStack<>();
+         for (char i : post.toCharArray()) {
+             q.add(i);
+         }
+         while (!q.isEmpty()) {
+             if (operator(i) && i != '!') {
+
+             }
+         }
+    }
+
     public static String inFixToPostFix(String infix) {
+        List floats = new ArrayList<String>();
+        String f;
+        int newString = 0;
+        for (char i : infix.toCharArray()) {
+            if (number(i) || i == '.') {
+                f += i;
+                newString = 1;
+            }
+            if (!number(i) && i != '.') {
+                newString = 0;
+            }
+        }
         myStack<Character> s = new myStack<>();
         Queue q = new LinkedList();
         String output = "";
