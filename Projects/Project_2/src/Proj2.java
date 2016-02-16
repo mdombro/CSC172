@@ -6,92 +6,186 @@
 
 // This file manages I/O operations and overall program logic
 
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.zip.CheckedInputStream;
 
 public class Proj2 {
     public static void main(String [] args) {
-        String test = "!((3<5)=(7>4))";
-        String post = inFixToPostFix(test);
-        float eval = evalPostFix(post);
-        System.out.println(post);
+        String test = "5.2+1.0";
+        Queue post = inFixToPostFix(test);
+        //float eval = evalPostFix(post);
+        Object[] p = post.toArray();
+        System.out.println("Give it a ring boys");
+        for (int i = 0; i < p.length; i++) {
+            System.out.println(p[i]);
+        }
+        //System.out.println(post);
     }
 
-    public evalPostFix(String post) {
-      // 1. Get the token at the front of the queue.
-      // 2. If the token is an operand, push it onto the stack.
-      // 3. If the token is an operator, pop the appropriate number of operands from the stack (e.g. 2
-         // operands for multiplication, 1 for logical NOT). Perform the operation on the popped
-         // operands, and push the resulting value onto the stack.
-         Queue q = new LinkedList();
-         myStack<Character> s = new myStack<>();
-         for (char i : post.toCharArray()) {
-             q.add(i);
-         }
-         while (!q.isEmpty()) {
-             if (operator(i) && i != '!') {
+//    public evalPostFix(String post) {
+//      // 1. Get the token at the front of the queue.
+//      // 2. If the token is an operand, push it onto the stack.
+//      // 3. If the token is an operator, pop the appropriate number of operands from the stack (e.g. 2
+//         // operands for multiplication, 1 for logical NOT). Perform the operation on the popped
+//         // operands, and push the resulting value onto the stack.
+//         Queue q = new LinkedList();
+//         myStack<Character> s = new myStack<>();
+//         for (char i : post.toCharArray()) {
+//             q.add(i);
+//         }
+//         while (!q.isEmpty()) {
+//             if (operator(i) && i != '!') {
+//
+//             }
+//         }
+//    }
 
-             }
-         }
-    }
-
-    public static String inFixToPostFix(String infix) {
-        List floats = new ArrayList<String>();
-        String f;
-        int newString = 0;
-        for (char i : infix.toCharArray()) {
-            if (number(i) || i == '.') {
-                f += i;
-                newString = 1;
+    public static Queue inFixToPostFix(String infix) {
+        List<ArrayList<Character>> c = new ArrayList<>();
+        ArrayList<Character> od = new ArrayList<>();
+        ArrayList<Character> op = new ArrayList<>();
+        int supress = 0;
+        for (int i = 0; i < infix.length(); i++) {
+            if (operator(infix.charAt(i))) {
+                op.add(infix.charAt(i));
+                System.out.println("Im adding an operator " + infix.charAt(i));
+                c.add(new ArrayList<>(op));
+                op.clear();
+                System.out.println("I've cleared a sub list");
+                supress = 0;
             }
-            if (!number(i) && i != '.') {
-                newString = 0;
+            if (number(infix.charAt(i))) {
+                if (supress == 1 && i == infix.length() - 1) {  // in the case this is the last digit and last element of the string
+                    System.out.println("Im adding a digit " + infix.charAt(i));
+                    od.add(infix.charAt(i));
+                    c.add(new ArrayList<>(od));
+                    od.clear();
+                    System.out.println("I've cleared a sub list");
+                    supress = 0;
+                    continue;
+                }
+                if (supress == 1 && !number(infix.charAt(i + 1))) {   // in the case of last digit
+                    System.out.println("Im adding a digit " + infix.charAt(i));
+                    od.add(infix.charAt(i));
+                    c.add(new ArrayList<>(od));
+                    od.clear();
+                    System.out.println("I've cleared a sub list");
+                    supress = 0;
+                    continue;
+                }
+                if (supress == 1 && number(infix.charAt(i + 1))) {  // in the case a middle digit
+                    System.out.println("Im adding a digit " + infix.charAt(i));
+                    od.add(infix.charAt(i));
+                    continue;
+                }
+                if (supress == 0) {  // in the case of the first digit
+                    od.add(infix.charAt(i));
+                    System.out.println("Im adding a digit " + infix.charAt(i));
+                    supress = 1;
+                    if (i == infix.length() - 1) { // in the case we have a one digit number
+                        System.out.println("I've cleared a sub list");
+                        c.add(new ArrayList<>(od));
+                        od.clear();
+                        supress = 0;
+                    }
+                }
             }
         }
+        System.out.println("Length of c: " + c.size());
+        for (ArrayList<Character> li : c) {
+            System.out.println("Anybody here");
+            for (int i = 0; i < li.size(); i++) {
+                System.out.println("Whats in the sublist: " + li.get(i));
+            }
+        }
+        String floating = "";
+        float num;
+        List inFix = new ArrayList<>();
+        for (ArrayList<Character> li : c) {
+            for (int i = 0; i < li.size(); i++) {
+                if (number(li.get(i))) {
+                    floating += Character.toString(li.get(i));
+                    System.out.println("What is the digit: " + floating);
+                }
+                if (number(li.get(i)) && i == li.size() - 1) {
+                    num = Float.parseFloat(floating);
+                    inFix.add(num);
+                    System.out.println(num);
+                    floating = "";
+                }
+                if (operator(li.get(i))) {
+                    inFix.add(li.get(i));
+                    System.out.println(li.get(i));
+                }
+            }
+        }
+        System.out.println();
+        System.out.println();
+        for (Object i : inFix) {
+            System.out.println(i);
+        }
+
+
         myStack<Character> s = new myStack<>();
         Queue q = new LinkedList();
         String output = "";
-        for (char i : infix.toCharArray()) {
+        for (Object i : inFix) {
             System.out.println("What's in q: " + q.toString());
-            if (number(i)) {  // if the input is an operand, add to queue
+            if (i.getClass() == Float.class) {
+                System.out.println("When is this true");
                 q.add(i);
             }
-            if (i == '(') {
-                s.push(i);  // ( always pushed to stack
-            }
-            if (i == ')') {
-                while (s.peek() != '(') {  // pop from stack to queue until ( found
-                    q.add(s.pop());
+            if (i.getClass() == Character.class) {
+                if ((char) i == '(') {
+                    s.push((char) i);  // ( always pushed to stack
                 }
-                s.pop(); // pop the ( off into nothing
-            }
-            if (operator(i)) {  // if input is an operator +, -, *, /, <, >, =, !, |, &
-                if (s.isEmpty()) {
-                    s.push(i);
-                } else if (higherPrecedence(i, s.peek())) {
-                    s.push(i); // if the input has a higher precedence than what is on top of the stack we just push to stack
-                } else {
-                    q.add(s.pop()); // otherwise pop off stack into queue
-                    s.push(i);  // and then push read operator onto stack
+                if ((char) i == ')') {
+                    while (s.peek() != '(') {  // pop from stack to queue until ( found
+                        q.add(s.pop());
+                    }
+                    s.pop(); // pop the ( off into nothing
+                }
+                if (operator((char) i)) {  // if input is an operator +, -, *, /, <, >, =, !, |, &
+                    if (s.isEmpty()) {
+                        s.push((char) i);
+                    } else if (higherPrecedence((char) i, s.peek())) {
+                        s.push((char) i); // if the input has a higher precedence than what is on top of the stack we just push to stack
+                    } else {
+                        q.add(s.pop()); // otherwise pop off stack into queue
+                        s.push((char) i);  // and then push read operator onto stack
+                    }
                 }
             }
+            while (!s.isEmpty()) {
+                q.add(s.pop());  // empty any remaining operators onto the output queue
+            }
+            //System.out.println(q.toString());
+            //while (!q.isEmpty()) {
+              //  output += Character.toString(q.remove());
+            //}
+
         }
-        while (!s.isEmpty()) {
-            q.add(s.pop());  // empty any remaining operators onto the output queue
-        }
-        System.out.println(q.toString());
-        while (!q.isEmpty()) {
-            output += Character.toString((char)q.remove());
-        }
-        return output;
+        return q; //output;
     }
 
     public static boolean number(char i) {
-        if (Character.getNumericValue(i) == -1) {
-            return false;
+        String nums = "0123456789.";
+        for (char k : nums.toCharArray()) {
+            if (i == k) {
+                return true;
+            }
         }
-        else {
-            return true;
-        }
+        return false;
+//        if (i == '.') {
+//            return true;
+//        }
+//        if (Character.getNumericValue(i) == -1 ) {
+//            return false;
+//        }
+//        else {
+//            return true;
+//        }
     }
 
     public static boolean operator(char i) {
@@ -141,10 +235,10 @@ public class Proj2 {
         switch (i) {
             case '!':
                 return 1;
-            case '(':
-                return 2;
-            case ')':
-                return 2;
+            //case '(':
+            //    return 2;
+            //case ')':
+            //    return 2;
             case '*':
                 return 3;
             case '/':
