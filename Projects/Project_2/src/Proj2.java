@@ -6,40 +6,92 @@
 
 // This file manages I/O operations and overall program logic
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.zip.CheckedInputStream;
 
 public class Proj2 {
     public static void main(String [] args) {
-        String test = "!(3=2)&(5>6)";
+        String test = "3.2 < 2.3";
         Queue post = inFixToPostFix(test);
         //float eval = evalPostFix(post);
         Object[] p = post.toArray();
-        System.out.println("Give it a ring boys");
         for (int i = 0; i < p.length; i++) {
             System.out.print(p[i] +", ");
         }
-        //System.out.println(post);
+        Float answer = (float)evalPostFix(post);
+        System.out.println("\n" + answer);
     }
 
-//    public evalPostFix(String post) {
-//      // 1. Get the token at the front of the queue.
-//      // 2. If the token is an operand, push it onto the stack.
-//      // 3. If the token is an operator, pop the appropriate number of operands from the stack (e.g. 2
-//         // operands for multiplication, 1 for logical NOT). Perform the operation on the popped
-//         // operands, and push the resulting value onto the stack.
-//         Queue q = new LinkedList();
-//         myStack<Character> s = new myStack<>();
-//         for (char i : post.toCharArray()) {
-//             q.add(i);
-//         }
-//         while (!q.isEmpty()) {
-//             if (operator(i) && i != '!') {
-//
-//             }
-//         }
-//    }
+    public static Object evalPostFix(Queue post) {
+      // 1. Get the token at the front of the queue.
+      // 2. If the token is an operand, push it onto the stack.
+      // 3. If the token is an operator, pop the appropriate number of operands from the stack (e.g. 2
+         // operands for multiplication, 1 for logical NOT). Perform the operation on the popped
+         // operands, and push the resulting value onto the stack.
+      // +, -, *, /, <, >, =, !, |, &
+        Queue q = new LinkedList();
+        myStack s = new myStack<>();
+        float op1;
+        float op2;
+        for (Object i : post) {
+            if (i.getClass() == Float.class) {
+                s.push(i);
+            }
+            if (i.getClass() == Character.class) {
+                switch ((char)i) {
+                    case '+':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push(op1+op2);
+                        break;
+                    case '-':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push(op2-op1);
+                        break;
+                    case '*':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push(op1*op2);
+                        break;
+                    case '/':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push(op2/op1);
+                        break;
+                    case '<':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push((float)(op2 < op1 ? 1.0 : 0.0));
+                        break;
+                    case '>':
+                        op1 = (float)s.pop();
+                        op2 =(float) s.pop();
+                        s.push((float)(op2>op1 ? 1.0 : 0.0));
+                        break;
+                    case '=':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push((float)(op1==op2 ? 1.0 : 0.0));
+                        break;
+                    case '!':
+                        op1 = (float)s.pop();
+                        s.push((float)(op1 == 1.0 ? 0.0 : 1.0));
+                        break;
+                    case '|':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push((float)(op1 == 1.0 || op2 == 1.0 ? 1.0 : 0.0));
+                        break;
+                    case '&':
+                        op1 = (float)s.pop();
+                        op2 = (float)s.pop();
+                        s.push((float)(op1 == op2 && op1 == 1.0 ? 1.0 : 0.0));
+                        break;
+                }
+            }
+        }
+        return s.pop();
+    }
 
     public static Queue inFixToPostFix(String infix) {
         List<ArrayList<Character>> c = new ArrayList<>();
@@ -175,12 +227,7 @@ public class Proj2 {
         while (!s.isEmpty()) {
             q.add(s.pop());  // empty any remaining operators onto the output queue
         }
-            //System.out.println(q.toString());
-            //while (!q.isEmpty()) {
-              //  output += Character.toString(q.remove());
-            //}
-
-        return q; //output;
+        return q;
     }
 
     public static boolean number(char i) {
