@@ -7,18 +7,33 @@
 // This file manages I/O operations and overall program logic
 
 import java.util.*;
+import java.io.*;
 
 public class Proj2 {
-    public static void main(String [] args) {
-        String test = "3.2 < 2.3";
-        Queue post = inFixToPostFix(test);
-        //float eval = evalPostFix(post);
-        Object[] p = post.toArray();
-        for (int i = 0; i < p.length; i++) {
-            System.out.print(p[i] +", ");
+    public static void main(String [] args) throws IOException {
+        //FileInputStream in = null;
+        //FileOutputStream out = null;
+        String line;
+        try {
+            InputStream in = new FileInputStream(args[0]);
+            File out = new File(args[1]);
+            FileWriter fwr = new FileWriter(out);
+            InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
+            BufferedReader br = new BufferedReader(isr);
+
+            while ((line = br.readLine()) != null) {
+                Queue post = inFixToPostFix(line);
+                Float answer = (float)evalPostFix(post);
+                String p = answer.toString();
+                fwr.write(p+"\n");
+            }
+            fwr.flush();
+            fwr.close();
+            in.close();
         }
-        Float answer = (float)evalPostFix(post);
-        System.out.println("\n" + answer);
+        catch (IOException e) {
+           e.printStackTrace();
+       }
     }
 
     public static Object evalPostFix(Queue post) {
@@ -101,26 +116,21 @@ public class Proj2 {
         for (int i = 0; i < infix.length(); i++) {
             if (operator(infix.charAt(i)) || infix.charAt(i) == '(' || infix.charAt(i) == ')') {
                 op.add(infix.charAt(i));
-                System.out.println("Im adding an operator " + infix.charAt(i));
                 c.add(new ArrayList<>(op));
                 op.clear();
-                System.out.println("I've cleared a sub list");
                 supress = 0;
             }
             if (number(infix.charAt(i))) {
                 if (supress == 0) {  // in the case of the first digit
                     od.add(infix.charAt(i));
-                    System.out.println("Im adding a digit " + infix.charAt(i));
                     supress = 1;
                     if (i == infix.length()-1) {   // in case we are on the last single digit number
-                        System.out.println("I've cleared a sub list");
                         c.add(new ArrayList<>(od));
                         od.clear();
                         supress = 0;
                         continue;
                     }
                     if (!number(infix.charAt(i+1))) { // in the case we have a one digit number
-                        System.out.println("I've cleared a sub list");
                         c.add(new ArrayList<>(od));
                         od.clear();
                         supress = 0;
@@ -128,35 +138,28 @@ public class Proj2 {
                     continue;
                 }
                 if (supress == 1 && i == infix.length() - 1) {  // in the case this is the last digit and last element of the string
-                    System.out.println("Im adding a digit " + infix.charAt(i));
                     od.add(infix.charAt(i));
                     c.add(new ArrayList<>(od));
                     od.clear();
-                    System.out.println("I've cleared a sub list");
                     supress = 0;
                     continue;
                 }
                 if (supress == 1 && !number(infix.charAt(i + 1))) {   // in the case of last digit
-                    System.out.println("Im adding a digit " + infix.charAt(i));
                     od.add(infix.charAt(i));
                     c.add(new ArrayList<>(od));
                     od.clear();
-                    System.out.println("I've cleared a sub list");
                     supress = 0;
                     continue;
                 }
                 if (supress == 1 && number(infix.charAt(i + 1))) {  // in the case a middle digit
-                    System.out.println("Im adding a digit " + infix.charAt(i));
                     od.add(infix.charAt(i));
                     continue;
                 }
             }
         }
-        System.out.println("Length of c: " + c.size());
+
         for (ArrayList<Character> li : c) {
-            System.out.println("Anybody here");
             for (int i = 0; i < li.size(); i++) {
-                System.out.println("Whats in the sublist: " + li.get(i));
             }
         }
         String floating = "";
@@ -166,44 +169,31 @@ public class Proj2 {
             for (int i = 0; i < li.size(); i++) {
                 if (number(li.get(i))) {
                     floating += Character.toString(li.get(i));
-                    System.out.println("What is the digit: " + floating);
                 }
                 if (number(li.get(i)) && i == li.size() - 1) {
                     num = Float.parseFloat(floating);
                     inFix.add(num);
-                    System.out.println(num);
                     floating = "";
                 }
                 if (operator(li.get(i)) || li.get(i) == '(' || li.get(i) == ')') {
                     inFix.add(li.get(i));
-                    System.out.println(li.get(i));
                 }
             }
         }
-        System.out.println();
-        System.out.println();
-        for (Object i : inFix) {
-            System.out.println(i);
-        }
-
 
         myStack<Character> s = new myStack<>();
         Queue q = new LinkedList();
         String output = "";
         for (Object i : inFix) {
-            System.out.println("What's in q: " + q.toString());
             if (i.getClass() == Float.class || i.getClass() == Number.class) {
-                System.out.println("Queue has added: " + i);
                 q.add(i);
             }
             if (i.getClass() == Character.class) {
                 if ((char) i == '(') {
-                    System.out.println("Stack has added 1: " + i);
                     s.push((char) i);  // ( always pushed to stack
                 }
                 if ((char) i == ')') {
                     while (s.peek() != '(') {  // pop from stack to queue until ( found
-                        System.out.println("Queue has added 1: " + s.peek());
                         q.add(s.pop());
                     }
                     s.pop(); // pop the ( off into nothing
@@ -211,12 +201,9 @@ public class Proj2 {
                 if (operator((char) i)) {  // if input is an operator +, -, *, /, <, >, =, !, |, &
                     if (s.isEmpty()) {
                         s.push((char) i);
-                        System.out.println("Stack has added 2: " + i);
                     } else if (higherPrecedence((char) i, s.peek())) {
                         s.push((char) i); // if the input has a higher precedence than what is on top of the stack we just push to stack
-                        System.out.println("Stack has added 3: " + i);
                     } else {
-                        System.out.println("Queue has added 2: " + s.peek());
                         q.add(s.pop()); // otherwise pop off stack into queue
                         s.push((char) i);  // and then push read operator onto stack
                     }
@@ -268,8 +255,6 @@ public class Proj2 {
         //  =  - 8
         //  &  - 9
         //  |  - 10
-        System.out.println(i);
-        System.out.println(stack);
         if (stack == '(') {
             return true;  // ignore ( and just push to stack
         }
