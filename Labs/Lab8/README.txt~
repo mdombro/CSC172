@@ -1,0 +1,6 @@
+PROGRAMMER: Matthew Dombroski
+PARTNER(S): Gregory Hunkins
+CONTACT: ghunkins@u.rochester.edu
+
+LAB4 DESCRIPTION: Lab8 focused on using pointers in C. This was accomplished by rewriting many of the basic functions of the <string.h> library. All testing of the methods in the main function was successful. The Lab folder itself contains a README.txt file with basic information, the Lab8.c program, and an OUTPUT.txt with basic output of the Lab8.c program.
+

@@ -1,0 +1,51 @@
+Programmers: Matthew Dombroski and Greg Hunkins
+Partner: Greg Hunkins
+
+Lab 9: C linked list
+
+
+$ ./lab9
+Filled linked list: 
+Element : 0 
+Element : 1 
+Element : 3 
+Element : 5 
+Element : 7 
+Element : 9 
+Element : 11 
+Element : 13 
+Element : 15 
+Element : 17 
+Element : 19 
+
+Can we lookup elements in the list?  
+0  FOUND
+1  FOUND
+2 NOT FOUND
+3  FOUND
+4 NOT FOUND
+5  FOUND
+6 NOT FOUND
+7  FOUND
+8 NOT FOUND
+9  FOUND
+10 NOT FOUND
+11  FOUND
+12 NOT FOUND
+13  FOUND
+14 NOT FOUND
+15  FOUND
+16 NOT FOUND
+17  FOUND
+18 NOT FOUND
+19  FOUND
+
+List after deleting every other element: 
+Element : 1 
+Element : 5 
+Element : 7 
+Element : 11 
+Element : 13 
+Element : 17 
+Element : 19 
+
