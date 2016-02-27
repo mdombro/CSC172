@@ -1,0 +1,38 @@
+Project 2
+Author: Matthew Dombroski
+
+$ java Proj2 in.txt out.txt
+
+2.00
+6.20
+6.20
+0.00
+4.20
+-4.20
+12.00
+16.00
+-8.00
+9.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+1.00
+
+
+Output of extended cases: (cases can be found in the extended.txt file)
+
+3.00
+6.33
+0.23
+0.77

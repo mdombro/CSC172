@@ -1,6 +1,4 @@
 
-package lab7;
-
 /*
  * Programmers: Greg Hunkins and Matt Dombroski
  * Partner: Greg Hunkins
@@ -15,7 +13,6 @@ public class Lab7 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
 
         QueueLinkedList myQueue = new QueueLinkedList();
 

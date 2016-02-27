@@ -1,0 +1,8 @@
+Author: Matthew Dombroski
+Project 2
+
+This project was divided into three main code files - a class file to declare a custom stack class, a class file to declare a custom queue file, and a main project file which implemented the infix-to-postfix operations and the evaluation of the postfix expressions. The stack and queue were iplemented essentially the same way as they were in labs 6 and 7. The queue class was modified slightly as it did not completely work correctly from lab 7. Specifically the enqueue and dequeue methods were altered to work under all conditions. 
+
+The main program was broken up into several key function. First the input file is read line by line, each line going to the appropiate functions with the evaluated output finally being written to an output file. Each read line from the input file is passed to an infix-to-postfix function wich translates the infix string expression into a postfix expression in which the numbers are made into primative floats and the operators are kept as characters. This parsed postfix expression is then stoed into a queue and passed to a function that evaluates the expression. After evaluating the expression the answer is returned as a float printed to the output file. A newline characters is also printed to the output file and the the next line of the input file is read and parsed again. This continues until all the expressions are evaluated. 
+
+A few other test cases were tried in addition to the provided samples on Blackboard. These cases were longer and more complex or had a mix of spaces and characters to test the reliability of the program in interpretting input.   
