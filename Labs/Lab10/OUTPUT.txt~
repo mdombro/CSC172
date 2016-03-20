@@ -1,0 +1,44 @@
+Lab 10 Output:
+
+(precise)matthew@localhost:~/CSC172/Labs/Lab10$ java Lab10
+InOrder
+1
+9
+10
+12
+14
+24
+37
+100
+
+PreOrder
+12
+9
+1
+10
+24
+14
+37
+100
+
+PostOrder
+1
+10
+9
+14
+100
+37
+24
+12
+Looking up 24: true
+Looking up 2: false
+Can we insert 24 again?
+1
+9
+10
+12
+14
+24
+37
+100
+
