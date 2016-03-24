@@ -63,21 +63,44 @@ public class Project_3 {
     public static List<Point> getIntersections(Lines ref, List<Lines> lines) { // pass the parent node
         List<Point> intscts = new ArrayList<>();
         // algorithm to compute intersections
-        Point ix = new Point(0,0);
         for (int i = 0; i < lines.size(); i++) {
-            // check to see if lines intersect
-            if (((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)) > 0.01) {
-                ix.setPoint( ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.x - lines.get(i).p2.x) - (ref.p1.x - ref.p2.x) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)),
-                             ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)));
-                // check if intersection point is within bounds
-                if (ix.x > 0.0 && ix.x < 1.0 && ix.y > 0.0 && ix.y < 1.0) {
-                    intscts.add(ix);
-                }
+            float slopeRef = (ref.p2.y-ref.p1.y)/(ref.p2.x-ref.p1.x);
+            float slopeLine = (lines.get(i).p2.y-lines.get(i).p1.y)/(lines.get(i).p2.x-lines.get(i).p1.x);
+            if (Math.abs(slopeLine - slopeRef) > 0.001) {
+                float c, d;
+                if (ref.p1.x == 0)
+                    c = ref.p1.y;
+                else
+                    c = ref.p2.y;
+                if (lines.get(i).p1.x == 0)
+                    d = lines.get(i).p1.y;
+                else
+                    d = lines.get(i).p2.y;
+                Point intersect = new Point((d-c)/(slopeRef-slopeLine), (slopeRef*d-slopeLine*c)/(slopeRef-slopeLine));
+                intscts.add(intersect);
             }
+            //for (int o = 0; o < intscts.size(); o++) {
+            //    System.out.println("Segments: " + intscts.get(o).x + " " + intscts.get(o).y);
+            //}
+            return intscts;
         }
-        for (int i = 0; i < intscts.size(); i++) {
-            System.out.println("Segments: " + intscts.get(i).x + " " + intscts.get(i).y);
-        }
+
+
+        // Point ix = new Point(0,0);
+        // for (int i = 0; i < lines.size(); i++) {
+        //     // check to see if lines intersect
+        //     if (((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)) > 0.01) {
+        //         ix.setPoint( ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.x - lines.get(i).p2.x) - (ref.p1.x - ref.p2.x) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)),
+        //                      ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)));
+        //         // check if intersection point is within bounds
+        //         if (ix.x > 0.0 && ix.x < 1.0 && ix.y > 0.0 && ix.y < 1.0) {
+        //             intscts.add(ix);
+        //         }
+        //     }
+        // }
+        // for (int i = 0; i < intscts.size(); i++) {
+        //     System.out.println("Segments: " + intscts.get(i).x + " " + intscts.get(i).y);
+        // }
         return intscts;
     }
 
