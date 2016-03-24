@@ -4,16 +4,15 @@
 public class BinarySearchTree<T extends Comparable<T>> implements BST<T> {
     MyTreeNode parentNode;
     BinarySearchTree() {
-        parentNode = new MyTreeNode(null, null, null, null, null, null, null, null);
+        parentNode = new MyTreeNode(null, null, null, null);
     }
 
-    public void insert(T x, T x1, T x2, T y1, T y2) {
-        if (parentNode.ccw == null) {
-            parentNode.ccw = x;
+    public void insert(Lines l) {
+        if (parentNode.line == null) {
+            //System.out.println("Added first line");
+            parentNode.line = l;
         } else {
-            if (parentNode.lookup(x) == false) {
-                parentNode.insert(x, x1, x2, y1, y2);
-            }
+            parentNode.insert(l);
         }
     }
 
