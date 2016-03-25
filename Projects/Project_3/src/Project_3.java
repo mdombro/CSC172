@@ -10,6 +10,7 @@ public class Project_3 {
 
         String input;
         List<String> nums = new ArrayList<>();
+        List<String> points = new ArrayList<>();
         String coord = "";
         float x1, x2, y1, y2;
         try {
@@ -17,41 +18,86 @@ public class Project_3 {
             InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             int numLines = Integer.parseInt( br.readLine() );
+            boolean pointsFlag = false;
             while ((input = br.readLine()) != null) {
-                System.out.println(input);
-                for (int i = 0; i < input.length(); i++) {
-                    if (input.charAt(i) != ' ') {
-                        coord += input.charAt(i);
-                    } else {
-                        nums.add(coord);
-                        coord = "";
+                //System.out.println(input);
+                if (input.charAt(0) == 'p') {
+                    //System.out.println("YO");
+                    pointsFlag = true;
+                    System.out.println("Tree in InOrder print format:");
+                    tree.printPreOrder();
+                    System.out.println();
+                    continue;
+                }
+                if (pointsFlag == false) {
+                    for (int i = 0; i < input.length(); i++) {
+                        if (input.charAt(i) != ' ') {
+                            coord += input.charAt(i);
+                        } else {
+                            nums.add(coord);
+                            coord = "";
+                        }
+                    }
+                    nums.add(coord);
+                    coord = "";
+                    x1 = Float.parseFloat(nums.get(0));
+                    y1 = Float.parseFloat(nums.get(1));
+                    x2 = Float.parseFloat(nums.get(2));
+                    y2 = Float.parseFloat(nums.get(3));
+                    //System.out.println(x1 + " " + x2 + " " + y1 + " " + y2);
+                    nums.clear();
+                    if (lines.size() > 0) {
+                        intersections = getIntersections(new Lines(new Point(x1, y1), new Point(x2, y2)), lines); // intersections for the new line
+                        segments = findSegments(intersections, new Lines(new Point(x1, y1), new Point(x2, y2)));  //
+                        // for each segment
+                        for (int o = 0; o < segments.size(); o++) {
+                            tree.insert(segments.get(o), lines.size()+1);
+                        }
+                        lines.add(new Lines(new Point(x1, y1), new Point(x2, y2)));
+                    }
+                    else {  // just insert the first line
+                        lines.add(new Lines(new Point(x1, y1), new Point(x2, y2)));
+                        tree.insert(lines.get(0), lines.size());
                     }
                 }
-                nums.add(coord);
-                coord = "";
-                x1 = Float.parseFloat(nums.get(0));
-                y1 = Float.parseFloat(nums.get(1));
-                x2 = Float.parseFloat(nums.get(2));
-                y2 = Float.parseFloat(nums.get(3));
-                System.out.println(x1 + " " + x2 + " " + y1 + " " + y2);
-                nums.clear();
-                if (lines.size() > 0) {
-                    intersections = getIntersections(new Lines(new Point(x1, y1), new Point(x2, y2)), lines); // intersections for the new line
-                    segments = findSegments(intersections, new Lines(new Point(x1, y1), new Point(x2, y2)));  //
-                    // for each segment
-                    for (int o = 0; o < segments.size(); o++) {
-                        //System.out.println("Which segment: " + o);
-                        tree.insert(segments.get(o));
+                if (pointsFlag == true) {
+                    for (int i = 0; i < input.length(); i++) {
+                        if (input.charAt(i) != ' ') {
+                            coord += input.charAt(i);
+                        } else {
+                            points.add(coord);
+                            coord = "";
+                        }
                     }
-                    lines.add(new Lines(new Point(x1, y1), new Point(x2, y2)));
-                }
-                else {  // just insert the first line
-                    lines.add(new Lines(new Point(x1, y1), new Point(x2, y2)));
-                    tree.insert(lines.get(0));
+                    points.add(coord);
+                    coord = "";
+                    x1 = Float.parseFloat(points.get(0));
+                    y1 = Float.parseFloat(points.get(1));
+                    x2 = Float.parseFloat(points.get(2));
+                    y2 = Float.parseFloat(points.get(3));
+                    Point p1 = new Point(x1, y1);
+                    Point p2 = new Point(x2, y2);
+                    points.clear();
+
+                    System.out.println("Points being tested: ");
+                    System.out.println(p1.x + " " + p1.y);
+                    System.out.println(p2.x + " " + p2.y);
+
+                    int id = tree.lookup(p1, p2);
+                    if (id == 0) {
+                        System.out.println("The points are in the same region");
+                        System.out.println();
+                    }
+                    else if (id == -1) {
+                        System.out.println("Looks like your tree is empty");
+                    }
+                    else {
+                        System.out.println("The points are in different regions");
+                        System.out.println("They are seperated by: " + lines.get(id-1).p1.x + " " + lines.get(id-1).p1.y + " " + lines.get(id-1).p2.x + " " + lines.get(id-1).p2.y);
+                        System.out.println();
+                    }
                 }
             }
-            tree.printPreOrder();
-            //System.out.println(tree.parentNode.line.p1.x + " " + tree.parentNode.line.p1.y + " " + tree.parentNode.line.p2.x + " " + tree.parentNode.line.p2.y);
             in.close();
         }
         catch (IOException e) {
@@ -76,31 +122,21 @@ public class Project_3 {
                     d = lines.get(i).p1.y;
                 else
                     d = lines.get(i).p2.y;
-                Point intersect = new Point((d-c)/(slopeRef-slopeLine), (slopeRef*d-slopeLine*c)/(slopeRef-slopeLine));
-                intscts.add(intersect);
+                Point intersect;
+                if ((ref.p2.x - ref.p1.x) == 0) {
+                    intersect = new Point(ref.p2.x, slopeLine*ref.p2.x + d);
+                }
+                else if ((lines.get(i).p2.x - lines.get(i).p1.x) == 0) {
+                    intersect = new Point(lines.get(i).p2.x, slopeRef*lines.get(i).p2.x + c);
+                }
+                else {
+                    intersect = new Point((d-c)/(slopeRef-slopeLine), (slopeRef*d-slopeLine*c)/(slopeRef-slopeLine));
+                }
+                if (intersect.x >= 0.0 && intersect.x <= 1.0 && intersect.y > 0.0 && intersect.y < 1.0) {
+                        intscts.add(intersect);
+                }
             }
-            //for (int o = 0; o < intscts.size(); o++) {
-            //    System.out.println("Segments: " + intscts.get(o).x + " " + intscts.get(o).y);
-            //}
-            return intscts;
         }
-
-
-        // Point ix = new Point(0,0);
-        // for (int i = 0; i < lines.size(); i++) {
-        //     // check to see if lines intersect
-        //     if (((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)) > 0.01) {
-        //         ix.setPoint( ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.x - lines.get(i).p2.x) - (ref.p1.x - ref.p2.x) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)),
-        //                      ((ref.p1.x*ref.p2.y - ref.p1.y*ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x * lines.get(i).p2.y - lines.get(i).p1.y * lines.get(i).p2.x)) / ((ref.p1.x - ref.p2.x) * (lines.get(i).p1.y - lines.get(i).p2.y) - (ref.p1.y - ref.p2.y) * (lines.get(i).p1.x - lines.get(i).p2.x)));
-        //         // check if intersection point is within bounds
-        //         if (ix.x > 0.0 && ix.x < 1.0 && ix.y > 0.0 && ix.y < 1.0) {
-        //             intscts.add(ix);
-        //         }
-        //     }
-        // }
-        // for (int i = 0; i < intscts.size(); i++) {
-        //     System.out.println("Segments: " + intscts.get(i).x + " " + intscts.get(i).y);
-        // }
         return intscts;
     }
 
@@ -137,9 +173,6 @@ public class Project_3 {
                 }
             }
         }
-//        for (int i = 0; i < intscts.size(); i++) {
-//            System.out.println("Segments: " + intscts.get(i).x + " " + intscts.get(i).y);
-//        }
         List<Lines> segs = new ArrayList<>();
         for (int o = 0; o < intscts.size()-1; o++) {
             segs.add(new Lines( new Point(intscts.get(o).x, intscts.get(o).y), new Point(intscts.get(o+1).x, intscts.get(o+1).y) ));

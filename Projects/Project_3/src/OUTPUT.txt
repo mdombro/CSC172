@@ -1,0 +1,58 @@
+Author: Matthew Dombroski
+Project 3
+
+Lines under test:
+0,0  1,1
+0,1  1,0
+0.25,0  0.25, 1
+
+
+$ java Project_3Tree in InOrder print format:
+0.000000 0.000000 1.000000 1.000000 
+0.000000 1.000000 0.500000 0.500000 
+0.250000 0.750000 0.250000 1.000000 
+0.250000 0.250000 0.250000 0.750000 
+0.500000 0.500000 1.000000 0.000000 
+0.250000 0.000000 0.250000 0.250000 
+
+Points being tested: 
+0.75 0.4
+0.5 0.25
+The points are in different regions
+They are seperated by: 0.0 1.0 1.0 0.0
+
+$ java Project_3
+Points being tested: 
+0.75 0.4
+0.75 0.6
+The points are in the same region
+
+$ java Project_3
+Points being tested: 
+0.5 0.25
+0.5 0.75
+The points are in different regions
+They are seperated by: 0.0 0.0 1.0 1.0
+
+$ java Project_3
+Points being tested: 
+0.27 0.28
+0.4 0.5
+The points are in the same region
+
+$ java Project_3
+Points being tested: 
+0.1 0.5
+0.4 0.5
+The points are in different regions
+They are seperated by: 0.25 0.0 0.25 1.0
+
+
+
+
+
+
+
+
+
+
