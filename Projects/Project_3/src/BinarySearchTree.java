@@ -7,6 +7,26 @@ public class BinarySearchTree<T extends Comparable<T>> implements BST<T> {
         parentNode = new MyTreeNode(null, 0, null, null, null);
     }
 
+    public int numLeaves() {
+        if (parentNode.leftChild == null && parentNode.rightChild == null) {
+            return 0;
+        }
+        else {
+            return parentNode.numLeaves();
+        }
+    }
+    public float avgPathLength() {
+        int numLeaves = parentNode.numLeaves();
+        int lengthSum;
+        if (numLeaves == 0) {
+            lengthSum = -1;
+        }
+        else {
+            lengthSum = parentNode.pathLengthSum();
+        }
+        return lengthSum/(float)numLeaves;
+    }
+
     public void insert(Lines l, int id) {
         if (parentNode.line == null) {
             //System.out.println("Added first line");

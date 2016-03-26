@@ -14,22 +14,26 @@ public class Project_3 {
         String coord = "";
         float x1, x2, y1, y2;
         try {
-            InputStream in = new FileInputStream("lines.txt");
+            InputStream in = new FileInputStream("Data/lines.txt");
             InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             int numLines = Integer.parseInt( br.readLine() );
-            boolean pointsFlag = false;
+            int line = 0;
             while ((input = br.readLine()) != null) {
-                //System.out.println(input);
-                if (input.charAt(0) == 'p') {
-                    //System.out.println("YO");
-                    pointsFlag = true;
-                    System.out.println("Tree in InOrder print format:");
-                    tree.printPreOrder();
+                if (input.equals("")) {
+                    //System.out.println("Tree in PreOrder print format:");
+                    //tree.printPreOrder();
+                    System.out.println("Tree in InOrder print format");
+                    tree.printInOrder();
+                    System.out.println();
+                    System.out.println("Number of leaves: " + tree.numLeaves());
+                    System.out.println();
+                    System.out.println("Average path length: " + tree.avgPathLength());
                     System.out.println();
                     continue;
                 }
-                if (pointsFlag == false) {
+                if (line < numLines) {
+                    line++;
                     for (int i = 0; i < input.length(); i++) {
                         if (input.charAt(i) != ' ') {
                             coord += input.charAt(i);
@@ -59,8 +63,7 @@ public class Project_3 {
                         lines.add(new Lines(new Point(x1, y1), new Point(x2, y2)));
                         tree.insert(lines.get(0), lines.size());
                     }
-                }
-                if (pointsFlag == true) {
+                } else {
                     for (int i = 0; i < input.length(); i++) {
                         if (input.charAt(i) != ' ') {
                             coord += input.charAt(i);
@@ -101,6 +104,7 @@ public class Project_3 {
             in.close();
         }
         catch (IOException e) {
+            System.out.println("Could not find file");
             e.printStackTrace();
         }
     }

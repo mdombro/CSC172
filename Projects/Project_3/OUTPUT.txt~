@@ -1,0 +1,141 @@
+Author: Matthew Dombroski
+Project 3
+
+lines.txt:
+4
+0 0 1 1
+0 1 1 0
+0.25 0 0.25 1
+0 0.6 0.6 0
+
+0.1 0.5 0.4 0.5
+0.75 0.4 0.5 0.25
+0.75 0.4 0.75 0.6
+0.5 0.25 0.5 0.75
+0.27 0.28 0.4 0.5
+
+Program output:
+$ java project_3
+Tree in InOrder print format
+0.250000 0.750000 0.250000 1.000000 Parent line ID: 3 
+0.000000 1.000000 0.500000 0.500000 Parent line ID: 2 
+0.000000 0.600000 0.250000 0.350000 Parent line ID: 4 
+0.250000 0.250000 0.250000 0.750000 Parent line ID: 3 
+0.250000 0.350000 0.300000 0.300000 Parent line ID: 4 
+0.000000 0.000000 1.000000 1.000000 Parent line ID: 1 
+0.500000 0.500000 1.000000 0.000000 Parent line ID: 2 
+0.250000 0.000000 0.250000 0.250000 Parent line ID: 3 
+0.300000 0.300000 0.600000 0.000000 Parent line ID: 4 
+
+Number of leaves: 4
+
+Average path length: 2.75
+
+Points being tested: 
+0.1 0.5
+0.4 0.5
+The points are in different regions
+They are seperated by: 0.25 0.0 0.25 1.0
+
+Points being tested: 
+0.75 0.4
+0.5 0.25
+The points are in different regions
+They are seperated by: 0.0 1.0 1.0 0.0
+
+Points being tested: 
+0.75 0.4
+0.75 0.6
+The points are in the same region
+
+Points being tested: 
+0.5 0.25
+0.5 0.75
+The points are in different regions
+They are seperated by: 0.0 0.0 1.0 1.0
+
+Points being tested: 
+0.27 0.28
+0.4 0.5
+The points are in different regions
+They are seperated by: 0.0 0.6 0.6 0.0
+
+
+lines.txt:
+5
+0.00 0.12 0.23 1.00 
+1.00 0.41 0.00 0.52
+1.00 0.20 0.30 1.00
+0.00 0.40 0.10 0.00
+1.00 0.35 0.10 1.00
+
+0.25 0.80 0.60 0.50
+0.95 0.10 0.11 0.50
+
+$java project_3
+Tree in InOrder print format
+0.000000 0.400000 0.035778 0.256889 Parent line ID: 4 
+0.000000 0.120000 0.230000 1.000000 Parent line ID: 1 
+1.000000 0.350000 0.100000 1.000000 Parent line ID: 5 
+0.193479 0.860266 0.784029 0.433757 Parent line ID: 5 
+1.000000 0.200000 0.300000 1.000000 Parent line ID: 3 
+0.177100 0.797600 0.464730 0.468880 Parent line ID: 3 
+0.101624 0.508821 1.000000 0.410000 Parent line ID: 2 
+0.784029 0.433757 1.000000 0.350000 Parent line ID: 5 
+0.464730 0.468880 1.000000 0.200000 Parent line ID: 3 
+0.035778 0.256889 0.100000 0.000000 Parent line ID: 4 
+1.000000 0.410000 0.000000 0.520000 Parent line ID: 2 
+
+Number of leaves: 4
+
+Average path length: 3.0
+
+Points being tested: 
+0.25 0.8
+0.6 0.5
+The points are in the same region
+
+Points being tested: 
+0.95 0.1
+0.11 0.5
+The points are in the same region
+
+lines.txt:
+4
+0.00 0.0 1 1
+0 1 1 0
+0 0.75 0.25 1
+0.25 0 1 0.75
+
+0.25 0.80 0.60 0.50
+0.95 0.10 0.11 0.50
+
+$ java porject_3
+Tree in InOrder print format
+0.125000 0.875000 0.250000 1.000000 Parent line ID: 3 
+0.000000 1.000000 0.500000 0.500000 Parent line ID: 2 
+0.000000 0.750000 0.125000 0.875000 Parent line ID: 3 
+0.125000 0.875000 0.250000 0.000000 Parent line ID: 4 
+0.000000 0.000000 1.000000 1.000000 Parent line ID: 1 
+0.500000 0.500000 1.000000 0.000000 Parent line ID: 2 
+0.250000 0.000000 1.000000 0.750000 Parent line ID: 4 
+
+Number of leaves: 3
+
+Average path length: 2.3333333
+
+Points being tested: 
+0.25 0.8
+0.6 0.5
+The points are in different regions
+They are seperated by: 0.0 0.0 1.0 1.0
+
+Points being tested: 
+0.95 0.1
+0.11 0.5
+The points are in different regions
+They are seperated by: 0.0 0.0 1.0 1.0
+
+
+
+

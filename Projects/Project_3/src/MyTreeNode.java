@@ -43,13 +43,47 @@ public class MyTreeNode<T extends Comparable<T>> {
         }
     }
 
+    public int numLeaves() {
+        int tmp = 0;
+        if (this.rightChild == null && this.leftChild == null) {
+            return 1;
+        }
+        if (this.rightChild != null) {
+            tmp += this.rightChild.numLeaves();
+        }
+        if (this.leftChild != null) {
+            tmp += this.leftChild.numLeaves();
+        }
+        return tmp;
+    }
+
+    public int pathLengthSum() {
+        int tmp = 0;
+        if (this.rightChild == null && this.leftChild == null) {
+            return getPathLength();
+        }
+        if (this.rightChild != null) {
+            tmp += this.rightChild.pathLengthSum();
+        }
+        if (this.leftChild != null) {
+            tmp += this.leftChild.pathLengthSum();
+        }
+        return tmp;
+    }
+
+    public int getPathLength() {
+        if (this.parent == null) {
+            return 0;
+        }
+        return this.parent.getPathLength() + 1;
+    }
+
+
     public int ccw(Point p0, Point p1, Point p2) {
         double dx1 = p1.x - p0.x;
         double dy1 = p1.y - p0.y;
         double dx2 = p2.x - p0.x;
         double dy2 = p2.y - p0.y;
-        //System.out.println("p0: " + p0.x + " " + p0.y);
-        //System.out.println("ds: " + dx1 + " " + dy1 + " " + dx2 + " " + dy2);
         if (dx1*dy2 > dy1*dx2) return COUNTERCLOCKWISE;
         else if (dx1*dy2 < dy1*dx2) return CLOCKWISE;
         else if ((dx1*dx2 < 0) || (dy1*dy2 < 0)) return CLOCKWISE;
@@ -60,9 +94,6 @@ public class MyTreeNode<T extends Comparable<T>> {
     public int lookup(Point p1, Point p2) {
         int sideP1 = ccw(p1, this.line.p1, this.line.p2);
         int sideP2 = ccw(p2, this.line.p1, this.line.p2);
-        //System.out.println("Input points: " + this.line.p1.x + " " + this.line.p1.y + " " + this.line.p2.x + " " + this.line.p2.y);
-        //System.out.println("Side of point: " + sideP1 + " " + sideP2);
-        //System.out.println("ID: " + this.parentLineID);
         if (sideP1 != sideP2) {
             return this.parentLineID;
         }
@@ -76,20 +107,6 @@ public class MyTreeNode<T extends Comparable<T>> {
                 return this.rightChild.lookup(p1,p2);
             }
         }
-
-//        if (x.equals(this.ccw))
-//            return true;
-//        else if (x.compareTo(this.ccw) < 0) {
-//            if (this.leftChild == null)
-//                return false;
-//            else
-//                return this.leftChild.lookup(x);
-//        } else if (x.compareTo(this.ccw) > 0) {
-//            if (this.rightChild == null)
-//                return false;
-//            else
-//                return this.rightChild.lookup(x);
-//        }
         return 0;
     }
 
@@ -107,7 +124,7 @@ public class MyTreeNode<T extends Comparable<T>> {
         if (this.leftChild != null) {
             this.leftChild.printInOrder();
         }
-        System.out.printf("%f %f %f %f \n", this.line.p1.x, this.line.p1.y, this.line.p2.x, this.line.p2.y);
+        System.out.printf("%f %f %f %f Parent line ID: %d \n", this.line.p1.x, this.line.p1.y, this.line.p2.x, this.line.p2.y, this.parentLineID);
         if (this.rightChild != null) {
             this.rightChild.printInOrder();
         }
