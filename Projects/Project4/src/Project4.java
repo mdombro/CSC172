@@ -8,6 +8,12 @@ import java.util.*;
 
 public class Project4 {
     public static void main(String[] args) throws IOException {
+        if (args[0].equals("-show")) {
+            System.out.println("GUI not implemented");
+        }
+        if (Arrays.asList(args).contains("-directions")) {
+
+        }
         String input;
         HashMap<String, Node> nodes = new HashMap<>();
         try {
