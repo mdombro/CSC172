@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35f563bc-bba3-43ff-81e1-8cdb25dda33e" name="Default" comment="proj 4">
+    <list default="true" id="35f563bc-bba3-43ff-81e1-8cdb25dda33e" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/Node.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/NodeComparator.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/Point.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/Project4.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/monroe.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/nys.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/ur.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project4.iml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/monroe.txt" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/nys.txt" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Project4/ur.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/NodeComparator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Point.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Project4.java" />
     </list>
     <ignored path="Project4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,7 +45,7 @@
       <file leaf-file-name="Project4.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Project4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
+            <state relative-caret-position="89">
               <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
               <folding>
                 <element signature="e#0#3859#0" expanded="true" />
@@ -470,6 +456,14 @@
       <option name="presentableId" value="Default" />
       <updated>1461431510480</updated>
     </task>
+    <task id="LOCAL-00001" summary="proj 4">
+      <created>1461446079457</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1461446079457</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -592,7 +586,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Project4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
+        <state relative-caret-position="89">
           <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
           <folding>
             <element signature="e#0#3859#0" expanded="true" />
