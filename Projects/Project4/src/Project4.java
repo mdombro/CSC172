@@ -84,24 +84,24 @@ public class Project4 {
     }
 
     public static double computeCost(Node from, Node to) {
+        // algorithm from www.movable-type.co.uk/scripts/latlong.html
+        // take the lattitude and longitude of both nodes and calculates the distance between them in miles
         double R = 6371000;     // metres
-        double fromLat = toRadians(from.location.x);
-        double fromLon = toRadians(from.location.y);
-        double toLat = toRadians(to.location.x);
-        double toLon = toRadians(to.location.y);
+        double fromLat = toRadians(from.location.y);
+        double fromLon = toRadians(from.location.x);
+        double toLat = toRadians(to.location.y);
+        double toLon = toRadians(to.location.x);
         double dLat = toRadians((toLat-fromLat));
         double dLon = toRadians((toLon-fromLon));
 
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(fromLat) * Math.cos(toLat) *
-                        Math.sin(dLat/2) * Math.sin(dLon/2);
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(fromLat) * Math.cos(toLat) * Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-        return R*c;
+        return (R*c)/1609.344;  // convert meters into miles
     }
 
     public static double toRadians(double degree) {
-
+        return degree*(Math.PI/180);
     }
 
 }
