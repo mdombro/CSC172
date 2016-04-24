@@ -1,6 +1,8 @@
-/**
- * Created by matthew on 4/23/16.
- */
+/***************************/
+/***    Matt Dombroski  ****/
+/***       Project 4    ****/
+/***************************/
+
 public class Edge {
     Node a;
     Node b;

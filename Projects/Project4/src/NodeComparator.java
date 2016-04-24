@@ -1,3 +1,8 @@
+/***************************/
+/***    Matt Dombroski  ****/
+/***       Project 4    ****/
+/***************************/
+
 import java.util.Comparator;
 
 public class NodeComparator implements Comparator<Node> {
@@ -8,6 +13,5 @@ public class NodeComparator implements Comparator<Node> {
             return 1;
         else
             return -1;
-        //eturn 0;
     }
 }

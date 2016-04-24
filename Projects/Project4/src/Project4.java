@@ -12,6 +12,7 @@ public class Project4 {
         String goal = "";
         Boolean directions = false;
         Boolean MWST = false;
+        double weight = 0;
         String filename = args[0];
         if (Arrays.asList((args)).contains("-show")) {
             System.out.println("GUI not implemented");
@@ -23,6 +24,9 @@ public class Project4 {
         }
         if (Arrays.asList(args).contains("-meridianmap")) {
             MWST = true;
+        }
+        if (Arrays.asList(args).contains("-weight")) {
+            weight = Double.valueOf(args[Arrays.asList(args).indexOf("-weight")+1]);
         }
         String input;
 
@@ -50,9 +54,6 @@ public class Project4 {
                     edges.add(e);
                 }
             }
-            Node r = new Node("f", 38.898556, -77.037852);
-            Node t = new Node("r", 38.897147, -77.043934);
-            System.out.println("Cost test: " + computeCost(r, t));
         }
         catch (IOException e) {
             System.out.println("Could not find file");
@@ -69,8 +70,9 @@ public class Project4 {
                 double Cost = 0;
                 double pastCost = 0;
                 System.out.println("Path: ");
-                path = Dijkstra(start, goal, nodes);
+                path = Dijkstra(start, goal, nodes, weight);
                 pastCost = path.get(0).cost;
+                System.out.print(path.get(0).ID + " ");
                 for (int i = 1; i < path.size(); i++) {
                     Cost += path.get(i).cost-pastCost;
                     pastCost = path.get(i).cost;
