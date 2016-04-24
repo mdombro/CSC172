@@ -8,16 +8,25 @@ import java.util.*;
 
 public class Project4 {
     public static void main(String[] args) throws IOException {
-        if (args[0].equals("-show")) {
+        String start = "";
+        String goal = "";
+        Boolean directions = false;
+        if (Arrays.asList((args)).contains("-show")) {
             System.out.println("GUI not implemented");
         }
         if (Arrays.asList(args).contains("-directions")) {
-
+            directions = true;
+            start = args[Arrays.asList(args).indexOf("-directions")+1];
+            goal = args[Arrays.asList(args).indexOf("-directions")+2];
         }
+        if (Arrays.asList(args).contains("-meridianmap")) {
+            System.out.println("Not yet implemented");
+        }
+
         String input;
         HashMap<String, Node> nodes = new HashMap<>();
         try {
-            InputStream in = new FileInputStream("Data/nys.txt");
+            InputStream in = new FileInputStream("Data/ur.txt");
             InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             while ((input = br.readLine()) != null) {
@@ -43,8 +52,21 @@ public class Project4 {
 
 
         // if minimal path is requested
-        String start, goal;
-        ArrayList<Node> path = Dijkstra(start, goal, nodes);
+        ArrayList<Node> path;
+        if (directions) {
+            System.out.println(start);
+            System.out.println(goal);
+            if (!nodes.containsKey(goal) || !nodes.containsKey(start))
+                System.out.println("Sorry you entered an invalid start/destination");
+
+            else {
+                path = Dijkstra(start, goal, nodes);
+                for (Node i : path) {
+                    System.out.print(i.ID + " ");
+                }
+                System.out.println();
+            }
+        }
 
 
 //        for (Map.Entry<String, Node> entry : nodes.entrySet()) {
@@ -61,31 +83,38 @@ public class Project4 {
         Node goal = nodes.get(goalID);
         Comparator<Node> comp = new NodeComparator();
         PriorityQueue<Node> openList = new PriorityQueue<>(10, comp);
-        openList.add(start);
         start.cost = 0;
+        openList.add(start);
+        ArrayList<Node> closedList = new ArrayList<>();
         Node current;
         while (!openList.isEmpty()) {
             current = openList.remove();
+            closedList.add(current);
             if (current.location.x == goal.location.x && current.location.y == goal.location.y) {
                 break;
             }
             for (Node neighbor : current.neighbors) {
                 double toCost = current.cost + computeCost(current, neighbor);
-                if (!openList.contains(neighbor) || toCost < neighbor.cost) {
+                if (!closedList.contains(neighbor) || toCost < neighbor.cost) {
                     neighbor.cost = toCost;  // update the cost
                     openList.add(neighbor);
                     neighbor.from = current;
                 }
             }
+//            for (Node o : openList) {
+//                System.out.print(o.cost + "  ");
+//            }
+//            System.out.println();
         }
         Node c = goal;
         ArrayList<Node> path = new ArrayList<>();
         path.add(c);
         while (c.location.x != start.location.x && c.location.y != start.location.y) {
+            System.out.println(path.size());
             c = c.from;
             path.add(c);
         }
-        Collections.reverse(path);
+        //Collections.reverse(path);
         return path;
     }
 
