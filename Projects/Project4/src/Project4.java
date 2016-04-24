@@ -11,6 +11,8 @@ public class Project4 {
         String start = "";
         String goal = "";
         Boolean directions = false;
+        Boolean MWST = false;
+        String filename = args[0];
         if (Arrays.asList((args)).contains("-show")) {
             System.out.println("GUI not implemented");
         }
@@ -20,20 +22,22 @@ public class Project4 {
             goal = args[Arrays.asList(args).indexOf("-directions")+2];
         }
         if (Arrays.asList(args).contains("-meridianmap")) {
-            System.out.println("Not yet implemented");
+            MWST = true;
         }
         String input;
 
         HashMap<String, Node> nodes = new HashMap<>();
+        Comparator<Edge> comp = new EdgeComparator();
+        PriorityQueue<Edge> edges = new PriorityQueue<>(10, comp);
         try {
-            InputStream in = new FileInputStream("Data/monroe.txt");
+            InputStream in = new FileInputStream("Data/" + filename);
             InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             while ((input = br.readLine()) != null) {
                 String[] read = input.split("\t");
                 if (read[0].equals("i")) {  // process an intersection
-                    double x = Double.valueOf(read[2]);
-                    double y = Double.valueOf(read[3]);
+                    double x = Double.valueOf(read[2]);  // latitude
+                    double y = Double.valueOf(read[3]);  // longitude
                     Node inter = new Node(read[1], x, y);
                     nodes.put(read[1], inter);
                 }
@@ -42,8 +46,13 @@ public class Project4 {
                     Node two = nodes.get(read[3]);
                     one.neighbors.add(two);
                     two.neighbors.add(one);
+                    Edge e = new Edge(read[1], one, two, computeCost(one, two));
+                    edges.add(e);
                 }
             }
+            Node r = new Node("f", 38.898556, -77.037852);
+            Node t = new Node("r", 38.897147, -77.043934);
+            System.out.println("Cost test: " + computeCost(r, t));
         }
         catch (IOException e) {
             System.out.println("Could not find file");
@@ -54,66 +63,83 @@ public class Project4 {
         // if minimal path is requested
         ArrayList<Node> path;
         if (directions) {
-            System.out.println(start);
-            System.out.println(goal);
             if (!nodes.containsKey(goal) || !nodes.containsKey(start))
                 System.out.println("Sorry you entered an invalid start/destination");
-
             else {
+                double Cost = 0;
+                double pastCost = 0;
                 System.out.println("Path: ");
                 path = Dijkstra(start, goal, nodes);
-                System.out.println("Path size: " + path.size());
-                for (Node i : path) {
-                    System.out.print(i.ID + " ");
+                pastCost = path.get(0).cost;
+                for (int i = 1; i < path.size(); i++) {
+                    Cost += path.get(i).cost-pastCost;
+                    pastCost = path.get(i).cost;
+                    System.out.print(path.get(i).ID + " ");
                 }
                 System.out.println();
+                System.out.println("Distance in miles: " + Cost);
             }
         }
 
-
-//        for (Map.Entry<String, Node> entry : nodes.entrySet()) {
-//            Node j = entry.getValue();
-//            System.out.println(j.ID);
-//            for (int g = 0; g < j.neighbors.size(); g++) {
-//                System.out.println("\t" + j.neighbors.get(g));
-//            }
-//        }
+        // if MWST requested
+        ArrayList<Edge> roads;
+        if (MWST) {
+            roads = Kruskal(edges);
+            System.out.println("Roads taken: ");
+            for (Edge r : roads) {
+                System.out.print(r.ID + " ");
+            }
+            System.out.println();
+            System.out.println("Size of MWST: " + roads.size());
+        }
     }
 
-    public static ArrayList<Node> Dijkstra(String startID, String goalID, HashMap<String, Node> nodes) {
+    public static ArrayList<Edge> Kruskal(PriorityQueue<Edge> edges) {
+        ArrayList<Edge> roads = new ArrayList<>();
+        ArrayList<Edge> mwst = new ArrayList<>();
+        while (!edges.isEmpty()) {
+            roads.add(edges.poll());
+        }
+        for (Edge e : roads) {
+            if (!e.a.visited || !e.b.visited) {
+                mwst.add(e);
+                e.a.visited = true;
+                e.b.visited = true;
+            }
+        }
+        return mwst;
+    }
+
+    public static ArrayList<Node> Dijkstra(String startID, String goalID, HashMap<String, Node> nodes, double weight) {
         Node start = nodes.get(startID);
         Node goal = nodes.get(goalID);
         Comparator<Node> comp = new NodeComparator();
         PriorityQueue<Node> openList = new PriorityQueue<>(10, comp);
         start.cost = 0;
         openList.add(start);
-        ArrayList<Node> closedList = new ArrayList<>();
         Node current;
         while (!openList.isEmpty()) {
             current = openList.poll();
-            System.out.println(openList.size());
-            closedList.add(current);
-            if (current.location.x == goal.location.x && current.location.y == goal.location.y) {
+            current.visited = true;
+            if (current.ID.equals(goal.ID)) {
                 break;
             }
             for (Node neighbor : current.neighbors) {
                 double toCost = current.cost + computeCost(current, neighbor);
-                if (!closedList.contains(neighbor) || toCost < neighbor.cost) {
-                    neighbor.cost = toCost;  // update the cost
-                    openList.add(neighbor);
-                    neighbor.from = current;
+                if (!neighbor.visited) {
+                    if (toCost < neighbor.cost) {  // if its not known OR cost is better
+                        neighbor.priority = toCost + weight*heuristic(neighbor, goal);
+                        neighbor.cost = toCost;  // update the cost
+                        openList.add(neighbor);
+                        neighbor.from = current;
+                    }
                 }
             }
-//            for (Node o : openList) {
-//                System.out.print(o.cost + "  ");
-//            }
-//            System.out.println();
         }
         Node c = goal;
         ArrayList<Node> path = new ArrayList<>();
         path.add(c);
-        while (c.location.x != start.location.x && c.location.y != start.location.y && c.from != null) {
-            System.out.println(path.size());
+        while (!c.ID.equals(start.ID)) {
             c = c.from;
             path.add(c);
         }
@@ -121,16 +147,20 @@ public class Project4 {
         return path;
     }
 
+    public static double heuristic(Node start, Node goal) {
+        return computeCost(start, goal);
+    }
+
     public static double computeCost(Node from, Node to) {
         // algorithm from www.movable-type.co.uk/scripts/latlong.html
         // take the lattitude and longitude of both nodes and calculates the distance between them in miles
         double R = 6371000;     // metres
-        double fromLat = toRadians(from.location.y);
-        double fromLon = toRadians(from.location.x);
-        double toLat = toRadians(to.location.y);
-        double toLon = toRadians(to.location.x);
-        double dLat = toRadians((toLat-fromLat));
-        double dLon = toRadians((toLon-fromLon));
+        double fromLat = toRadians(from.location.x);
+        double fromLon = toRadians(from.location.y);
+        double toLat = toRadians(to.location.x);
+        double toLon = toRadians(to.location.y);
+        double dLat = toLat-fromLat;
+        double dLon = toLon-fromLon;
 
         double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(fromLat) * Math.cos(toLat) * Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
