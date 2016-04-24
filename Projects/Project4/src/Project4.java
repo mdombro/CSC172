@@ -22,11 +22,11 @@ public class Project4 {
         if (Arrays.asList(args).contains("-meridianmap")) {
             System.out.println("Not yet implemented");
         }
-
         String input;
+
         HashMap<String, Node> nodes = new HashMap<>();
         try {
-            InputStream in = new FileInputStream("Data/ur.txt");
+            InputStream in = new FileInputStream("Data/monroe.txt");
             InputStreamReader isr = new InputStreamReader(in); //, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             while ((input = br.readLine()) != null) {
@@ -60,7 +60,9 @@ public class Project4 {
                 System.out.println("Sorry you entered an invalid start/destination");
 
             else {
+                System.out.println("Path: ");
                 path = Dijkstra(start, goal, nodes);
+                System.out.println("Path size: " + path.size());
                 for (Node i : path) {
                     System.out.print(i.ID + " ");
                 }
@@ -88,7 +90,8 @@ public class Project4 {
         ArrayList<Node> closedList = new ArrayList<>();
         Node current;
         while (!openList.isEmpty()) {
-            current = openList.remove();
+            current = openList.poll();
+            System.out.println(openList.size());
             closedList.add(current);
             if (current.location.x == goal.location.x && current.location.y == goal.location.y) {
                 break;
@@ -109,12 +112,12 @@ public class Project4 {
         Node c = goal;
         ArrayList<Node> path = new ArrayList<>();
         path.add(c);
-        while (c.location.x != start.location.x && c.location.y != start.location.y) {
+        while (c.location.x != start.location.x && c.location.y != start.location.y && c.from != null) {
             System.out.println(path.size());
             c = c.from;
             path.add(c);
         }
-        //Collections.reverse(path);
+        Collections.reverse(path);
         return path;
     }
 
